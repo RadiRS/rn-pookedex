@@ -7,9 +7,7 @@ import { AppImage } from '@/assets';
 const HeaderSection = () => {
   const styles = useStyles();
 
-  const onPressMenu = () => {
-    // console.log('Test');
-  };
+  const onPressMenu = () => {};
 
   return (
     <View style={styles.container}>

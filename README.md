@@ -1,10 +1,10 @@
-# React Native Boilerplate Project
+# Pokemon Dex Apps - Rey.id
 
 ![Open Source? Yes!](https://badgen.net/badge/Open%20Source%20%3F/Yes%21/blue?icon=github)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Continuous Integration](https://github.com/RadiRS/rn-boilerplate/actions/workflows/ci.yml/badge.svg)](https://github.com/RadiRS/rn-boilerplate/actions/workflows/ci.yml)
-[![Android Build](https://github.com/RadiRS/rn-boilerplate/actions/workflows/android-build.yml/badge.svg)](https://github.com/RadiRS/rn-boilerplate/actions/workflows/android-build.yml)
-[![IOS Build](https://github.com/RadiRS/rn-boilerplate/actions/workflows/ios-build.yml/badge.svg)](https://github.com/RadiRS/rn-boilerplate/actions/workflows/ios-build.yml)
+[![CI](https://github.com/RadiRS/rn-pookedex/actions/workflows/ci.yml/badge.svg)](https://github.com/RadiRS/rn-pookedex/actions/workflows/ci.yml)
+[![Android Build](https://github.com/RadiRS/rn-pookedex/actions/workflows/android-build.yml/badge.svg)](https://github.com/RadiRS/rn-pookedex/actions/workflows/android-build.yml)
+[![iOS Build](https://github.com/RadiRS/rn-pookedex/actions/workflows/ios-build.yml/badge.svg)](https://github.com/RadiRS/rn-pookedex/actions/workflows/ios-build.yml)
 
 This project was created for Rey.id Mobile Developer entry test.
 
@@ -46,21 +46,6 @@ Run the project via command line
 yarn android   //android
 yarn ios       //ios
 ```
-
-Change app name or bundle identifier with [react-native-rename](https://github.com/junedomingo/react-native-rename)
-
-```
-yarn react-native-rename "My App" -b com.example.myapp
-```
-
-Splash screen generator with [react-native-bootsplash](https://github.com/zoontek/react-native-bootsplash)
-
-```
-yarn react-native generate-bootsplash src/assets/images/logo.png \
-  --background-color=212529
-```
-
-End with an example of getting some data out of the system or using it for a little demo
 
 <p>&nbsp;</p>
 

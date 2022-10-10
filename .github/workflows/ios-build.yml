@@ -1,16 +1,12 @@
-name: IOS Build
+name: iOS Build
 
 on:
   push:
     branches:
       - main
 
-  release:
-    types: [published]
-
 jobs:
   ios-build:
-    name: IOS Build
     runs-on: macOS-latest
     env:
       DEV_API_URL: ${{ secrets.DEV_API_URL }}
@@ -62,28 +58,3 @@ jobs:
 
       - name: Build IOS App
         run: xcodebuild -workspace PookeDex.xcworkspace -scheme PookeDexDev build CODE_SIGNING_ALLOWED=NO
-
-      # - name: Build IOS App
-      #   uses: yukiarrr/ios-build-action@v1.4.0
-      #   with:
-      #     project-path: ios/Gakko.xcodeproj
-      #     p12-base64: ${{ secrets.IOS_P12_BASE64 }}
-      #     mobileprovision-base64: ${{ secrets.IOS_MOBILE_PROVISION_BASE64 }}
-      #     code-signing-identity: "iPhone Distribution"
-      #     team-id: ${{ secrets.IOS_TEAM_ID }}
-      #     certificate-password: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
-      #     workspace-path: ios/Gakko.xcworkspace
-
-      # - name: Upload Artifact
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: Gakko IOS IPA
-      #     path: "output.ipa"
-
-      # - name: "Upload app to TestFlight"
-      #   uses: apple-actions/upload-testflight-build@v1
-      #   with:
-      #     app-path: "output.ipa"
-      #     issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
-      #     api-key-id: ${{ secrets.APPSTORE_API_KEY_ID }}
-      #     api-private-key: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}

@@ -15,12 +15,12 @@ exports[`<Button /> should render component correctly 1`] = `
   style={
     {
       "alignItems": "center",
-      "backgroundColor": "#3A00E5",
-      "borderRadius": 5,
+      "backgroundColor": "#E6AB09",
+      "borderRadius": 4,
       "height": 45,
       "justifyContent": "center",
       "opacity": 1,
-      "paddingHorizontal": 30,
+      "paddingHorizontal": 32,
     }
   }
 />

@@ -9,25 +9,29 @@
  * Colors
  */
 export const Colors = {
-  // Example colors:
   transparent: 'rgba(0,0,0,0)',
-  background: '#EFEFF0',
+  background: '#F5F5F5',
   splashBackground: '#212529',
   inputBackground: '#FFFFFF',
   white: '#ffffff',
-  text: '#212529',
+  text: '#42494D',
   dark: '#212529',
   textDisabled: '#9C9C9C',
   alternative: '#ffffff',
-  primary: '#3A00E5',
+  primary: '#E6AB09',
   secondary: '#F1F1F1',
   hint: '#AFB1B6',
   info: '#8AC0FF',
   disabled: '#DEDEDE',
-  success: '#28a745',
+  success: '#01B956',
   warning: '#FCCC6F',
-  error: '#dc3545',
+  error: '#DE2C2C',
   border: '#AFB1B6',
+  orange: '#E66D00',
+  grey: '#B3B6B8',
+  pink: '#E34C88',
+  blue: '#0571A6',
+  purple: '#3C48CF',
 };
 
 export const NavigationColors = {
@@ -39,11 +43,9 @@ export const NavigationColors = {
  * FontFamily
  */
 export const FontsFamily = {
-  regular: 'SourceSansPro-Regular',
-  bold: 'SourceSansPro-Bold',
-  light: 'SourceSansPro-Light',
-  semiBold: 'SourceSansPro-SemiBold',
-  italic: 'Lato-Italic',
+  regular: 'Poppins-Regular',
+  bold: 'Poppins-Bold',
+  semiBold: 'Poppins-SemiBold',
 };
 /**
  * FontSize
@@ -61,10 +63,10 @@ export const FontSize = {
 /**
  * Metrics Sizes
  */
-const tiny = 5; // 10
-const small = tiny * 2; // 10
-const regular = tiny * 3; // 15
-const large = regular * 2; // 30
+const tiny = 4; // 4
+const small = tiny * 2; // 8
+const regular = small * 2; // 16
+const large = regular * 2; // 32
 const border = 8; // 30
 export const MetricsSizes = {
   tiny,

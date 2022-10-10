@@ -4,7 +4,7 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 platform :ios, '12.4'
 install! 'cocoapods', :deterministic_uuids => false
 
-project 'RNB', {
+project 'PookeDex', {
   'DebugDev' => :debug,
   'DebugStag' => :debug,
   'DebugProd' => :debug,
@@ -13,7 +13,7 @@ project 'RNB', {
   'ReleaseProd' => :release,
 }
 
-target 'RNB' do
+target 'PookeDex' do
   config = use_native_modules!
   debugs = ['DebugDev','DebugStag','DebugProd']
 
@@ -38,7 +38,7 @@ target 'RNB' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  target 'RNBTests' do
+  target 'PookeDexTests' do
     inherit! :complete
     # Pods for testing
   end

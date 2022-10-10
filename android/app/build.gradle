@@ -27,10 +27,10 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
-        applicationId "com.rnb.rnboilerplate"
+        applicationId "com.example.pookedex"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 4
+        versionCode 5
         versionName "0.0.5"
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
 
@@ -127,15 +127,15 @@ android {
     flavorDimensions "env"
     productFlavors {
         dev {
-            resValue "string", "app_name", "RN Boilerplate Dev"
+            resValue "string", "app_name", "PookeDex Dev"
             applicationIdSuffix ".dev"
         }
         stag {
-            resValue "string", "app_name", "RN Boilerplate Stag"
+            resValue "string", "app_name", "PookeDex Stag"
             applicationIdSuffix ".stag"
         }
         prod {
-            resValue "string", "app_name", "RN Boilerplate"
+            resValue "string", "app_name", "PookeDex"
         }
     }
 

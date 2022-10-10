@@ -20,8 +20,8 @@ const DrawerNavigator = () => {
         name="Home"
         component={AppNavigator}
         options={{
-          title: 'RN Boilerplate',
-          headerTitle: 'RN Boilerplate',
+          title: 'PookeDex',
+          headerTitle: 'PookeDex',
         }}
       />
       <Drawer.Screen

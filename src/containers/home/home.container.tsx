@@ -13,7 +13,11 @@ const HomeContainer = () => {
   };
 
   return (
-    <ScrollView pagingEnabled ref={refScroll}>
+    <ScrollView
+      pagingEnabled
+      bounces={false}
+      ref={refScroll}
+      nestedScrollEnabled>
       <WelcomeSection onPress={onPressCheckPokeDex} />
       <PokeDexSection />
     </ScrollView>

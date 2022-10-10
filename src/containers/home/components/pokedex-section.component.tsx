@@ -1,18 +1,43 @@
-import React from 'react';
-import { Dimensions, ImageBackground, StyleSheet, View } from 'react-native';
+import React, { useEffect } from 'react';
+import {
+  Dimensions,
+  ImageBackground,
+  Platform,
+  StyleSheet,
+  View,
+} from 'react-native';
 import { useTranslation } from 'react-i18next';
-
-import { AppImage } from '@/assets';
-import { Text, FlatList } from '@/components/ui';
-import DexItem from './dex-item.component';
-import { useTheme } from '@/hooks';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-const arr = new Array(5);
+import { useAppDispatch, useAppSelector } from '@/store';
+import {
+  selectPokemons,
+  getPokemons,
+  selectPokemonStatus,
+  selectPokemonError,
+} from '@/store/pokemon';
+
+import { AppImage } from '@/assets';
+import { useTheme } from '@/hooks';
+import { Text, FlatList } from '@/components/ui';
+import DexItem from './dex-item.component';
 
 const PokeDexSection: React.FC = () => {
-  const { t } = useTranslation();
+  const dispatch = useAppDispatch();
   const styles = useStyles();
+  const { t } = useTranslation();
+
+  const pokemons = useAppSelector(selectPokemons);
+  const status = useAppSelector(selectPokemonStatus);
+  const error = useAppSelector(selectPokemonError);
+
+  useEffect(() => {
+    if (status === 'idle') {
+      dispatch(getPokemons({ limit: 5, offset: 0 }));
+    }
+
+    return () => {};
+  }, [status, dispatch]);
 
   const renderDexItem = () => {
     return <DexItem />;
@@ -29,9 +54,11 @@ const PokeDexSection: React.FC = () => {
         <Text style={styles.subTitleDex}>
           {t('headerSubtitle', { total: '9999' })}
         </Text>
+        {error && <Text status="error">{error}</Text>}
       </View>
       <FlatList
-        data={arr}
+        nestedScrollEnabled
+        data={pokemons?.results}
         renderItem={renderDexItem}
         contentContainerStyle={styles.listContentContainer}
       />
@@ -45,8 +72,13 @@ const useStyles = () => {
   const { MetricsSizes, Colors } = useTheme();
   const { height } = Dimensions.get('screen');
   const { top } = useSafeAreaInsets();
+  const isAndroid = Platform.OS === 'android';
 
   return StyleSheet.create({
+    dexContainer: {
+      paddingTop: isAndroid ? MetricsSizes.regular : top + MetricsSizes.regular,
+      height: height + 10,
+    },
     title: {
       fontSize: 36,
       lineHeight: 40,
@@ -54,10 +86,6 @@ const useStyles = () => {
     },
     whiteBg: {
       backgroundColor: Colors.background,
-    },
-    dexContainer: {
-      paddingTop: top + MetricsSizes.regular,
-      height: height + 10,
     },
     titleContainer: {
       justifyContent: 'center',

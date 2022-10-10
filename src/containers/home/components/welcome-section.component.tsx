@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, Image, StyleSheet, View } from 'react-native';
+import { Dimensions, Image, Platform, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 
@@ -30,7 +30,7 @@ const WelcomeSection: React.FC<WelcomeSectionProps> = ({
           </Text>
           <Text style={styles.subTitle}>{t('subWelcome')}</Text>
           <Button
-            testID="light-button"
+            testID="check-button"
             size="large"
             style={styles.btn}
             onPress={onPress}>
@@ -48,14 +48,15 @@ const useStyles = () => {
   const { MetricsSizes } = useTheme();
   const { height } = Dimensions.get('screen');
   const { top } = useSafeAreaInsets();
+  const isAndroid = Platform.OS === 'android';
 
   return StyleSheet.create({
+    welcomeContainer: {
+      paddingTop: isAndroid ? 0 : top,
+      height,
+    },
     padder: {
       padding: MetricsSizes.regular,
-    },
-    welcomeContainer: {
-      paddingTop: top,
-      height,
     },
     welcomeImg: {
       width: 264,

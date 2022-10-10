@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import React, { FC } from 'react';
 import { useTheme } from '@/hooks';
-import { ThemeVariables } from '@/types/theme';
 
 interface SafeAreaProps extends ViewProps {
   style?: StyleProp<ViewStyle>;
@@ -21,27 +20,30 @@ const SafeArea: FC<SafeAreaProps> = ({
   padder,
   ...props
 }: SafeAreaProps) => {
-  const theme = useTheme();
-  const s = styles(theme);
-  const padding = padder && s.padder;
+  const styles = useStyles();
+  const padding = padder && styles.padder;
 
   return (
-    <SafeAreaView style={s.container}>
-      <View style={[s.container, padding, style]} {...props}>
+    <SafeAreaView style={styles.container}>
+      <View style={[styles.container, padding, style]} {...props}>
         {children}
       </View>
     </SafeAreaView>
   );
 };
 
-const styles = (theme: ThemeVariables) =>
-  StyleSheet.create({
+const useStyles = () => {
+  const { MetricsSizes, Colors } = useTheme();
+
+  return StyleSheet.create({
     container: {
       flex: 1,
+      backgroundColor: Colors.background,
     },
     padder: {
-      padding: theme.MetricsSizes.regular,
+      padding: MetricsSizes.regular,
     },
   });
+};
 
 export default SafeArea;

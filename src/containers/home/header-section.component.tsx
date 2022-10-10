@@ -1,40 +1,49 @@
-import { View, StyleSheet } from 'react-native';
 import React from 'react';
+import { View, StyleSheet, Image, Pressable } from 'react-native';
 
-import Config from '@/config/env';
 import { useTheme } from '@/hooks';
-import { Text } from '@/components/ui';
-import { ThemeVariables } from '@/types/theme';
+import { AppImage } from '@/assets';
 
 const HeaderSection = () => {
-  const themes = useTheme();
-  const extStyle = styles(themes);
+  const styles = useStyles();
+
+  const onPressMenu = () => {
+    // console.log('Test');
+  };
 
   return (
-    <View style={extStyle.container}>
-      <Text variant="title-regular" appearance="alternative">
-        Header Section
-      </Text>
-      <Text variant="title-small" appearance="alternative">
-        Environment: {Config.ENV}
-      </Text>
-      <Text variant="small" appearance="alternative">
-        API_URL: {Config.API_URL}
-      </Text>
+    <View style={styles.container}>
+      <Image source={AppImage.logo.app} style={styles.img} />
+      <Pressable style={styles.press} onPress={onPressMenu}>
+        <Image source={AppImage.icon.burger} style={styles.menu} />
+      </Pressable>
     </View>
   );
 };
 
-const styles = (themes: ThemeVariables) =>
-  StyleSheet.create({
+const useStyles = () => {
+  const { MetricsSizes } = useTheme();
+
+  return StyleSheet.create({
     container: {
-      padding: 20,
-      backgroundColor: themes.Colors.primary,
-      borderRadius: 20,
-      height: 200,
-      justifyContent: 'center',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
       alignItems: 'center',
+      padding: MetricsSizes.regular,
+    },
+    img: {
+      width: 69,
+      height: 24,
+      resizeMode: 'contain',
+    },
+    press: {
+      paddingHorizontal: MetricsSizes.small,
+    },
+    menu: {
+      width: 16,
+      height: 16,
+      resizeMode: 'contain',
     },
   });
-
+};
 export default HeaderSection;

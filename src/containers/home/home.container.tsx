@@ -1,58 +1,65 @@
 import React from 'react';
-import { View } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { Image, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import { useTheme } from '@/hooks';
-import { changeTheme, ThemeState } from '@/store/theme';
-import Translations from '@/config/translations';
 import { Button, Text, SafeArea } from '@/components/ui';
-
+import { AppImage } from '@/assets';
 import HeaderSection from './header-section.component';
 
 const HomeContainer = () => {
-  const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { Fonts, Gutters } = useTheme();
-
-  const onPressChangeTheme = ({ theme, darkMode }: Partial<ThemeState>) => {
-    dispatch(changeTheme({ theme, darkMode }));
-  };
+  const { Gutters } = useTheme();
+  const styles = useStyles();
 
   return (
-    <SafeArea padder>
+    <SafeArea>
       <HeaderSection />
-      <View style={Gutters.regularBMargin} />
-      <Text style={Fonts.textRegular}>
-        {t('example.helloUser', { name: 'John' })}
-      </Text>
-      <Text style={Fonts.textSmall}>{t('welcome')}</Text>
-      <View style={Gutters.regularBMargin} />
-      <Button
-        onPress={() => Translations.changeLanguage('id')}
-        appearance="outlined"
-        style={Gutters.regularBMargin}>
-        Change to Bahasa
-      </Button>
-      <Button
-        onPress={() => Translations.changeLanguage('en')}
-        style={Gutters.regularBMargin}>
-        Change to English
-      </Button>
-      <Button
-        testID="dark-button"
-        appearance="outlined"
-        onPress={() => onPressChangeTheme({ darkMode: true })}
-        style={Gutters.regularBMargin}>
-        Change to Dark Mode
-      </Button>
-      <Button
-        testID="light-button"
-        onPress={() => onPressChangeTheme({ darkMode: false })}>
-        Change to Light Mode
-      </Button>
+      <View style={styles.padder}>
+        <Image source={AppImage.background.welcome} style={styles.welcomeImg} />
+        <View style={Gutters.largeTMargin}>
+          <Text variant="title-regular" style={styles.title}>
+            {t('welcome')}
+          </Text>
+          <Text style={styles.subTitle}>{t('subWelcome')}</Text>
+          <Button
+            testID="light-button"
+            size="large"
+            style={styles.btn}
+            onPress={() => {}}>
+            {t('actions.checkPokeDex')}
+          </Button>
+        </View>
+      </View>
     </SafeArea>
   );
+};
+
+const useStyles = () => {
+  const { MetricsSizes } = useTheme();
+
+  return StyleSheet.create({
+    welcomeImg: {
+      width: 264,
+      alignSelf: 'center',
+    },
+    title: {
+      fontSize: 36,
+      lineHeight: 40,
+      marginBottom: MetricsSizes.tiny,
+    },
+    subTitle: {
+      color: '#7B8082',
+      marginBottom: MetricsSizes.large,
+    },
+    btn: {
+      width: '80%',
+      borderRadius: 14,
+    },
+    padder: {
+      padding: MetricsSizes.regular,
+    },
+  });
 };
 
 export default HomeContainer;

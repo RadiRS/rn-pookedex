@@ -39,11 +39,9 @@ export const NavigationColors = {
  * FontFamily
  */
 export const FontsFamily = {
-  regular: 'SourceSansPro-Regular',
-  bold: 'SourceSansPro-Bold',
-  light: 'SourceSansPro-Light',
-  semiBold: 'SourceSansPro-SemiBold',
-  italic: 'Lato-Italic',
+  regular: 'Poppins-Regular',
+  bold: 'Poppins-Bold',
+  semiBold: 'Poppins-SemiBold',
 };
 /**
  * FontSize

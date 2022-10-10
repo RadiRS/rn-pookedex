@@ -5,7 +5,7 @@ exports[`<Text /> should render component correcly 1`] = `
   style={
     [
       {
-        "color": "#212529",
+        "color": "#42494D",
         "fontFamily": "Poppins-Regular",
         "fontSize": 16,
       },

@@ -1,15 +1,8 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-import {
-  ButtonPreviewContainer,
-  FlatListPreviewContainer,
-  InputPreviewContainer,
-  TextPreviewContainer,
-  WebviewPreviewContainer,
-} from '@/containers';
+import { HomeContainer, TextPreviewContainer } from '@/containers';
 import { RootStackParamList } from './types';
-import AppNavigator from './app.navigator';
 
 const Drawer = createDrawerNavigator<RootStackParamList>();
 
@@ -18,39 +11,19 @@ const DrawerNavigator = () => {
     <Drawer.Navigator>
       <Drawer.Screen
         name="Home"
-        component={AppNavigator}
+        component={HomeContainer}
         options={{
-          title: 'PookeDex',
-          headerTitle: 'PookeDex',
+          title: 'Home',
+          headerTitle: '',
         }}
       />
       <Drawer.Screen
-        name="TextPreviewContainer"
+        name="PokemonType"
         component={TextPreviewContainer}
-        options={{ title: 'Text', headerTitle: 'Text Preview' }}
-      />
-      <Drawer.Screen
-        name="InputPreviewContainer"
-        component={InputPreviewContainer}
-        options={{ title: 'Input', headerTitle: 'Input Preview' }}
-      />
-      <Drawer.Screen
-        name="ButtonPreviewContainer"
-        component={ButtonPreviewContainer}
-        options={{ title: 'Button', headerTitle: 'Button Preview' }}
-      />
-      <Drawer.Screen
-        name="FlatListPreviewContainer"
-        component={FlatListPreviewContainer}
         options={{
-          title: 'FlatList',
-          headerTitle: 'FlatList Preview | Todo List',
+          title: 'Pokemon Type',
+          headerTitle: '',
         }}
-      />
-      <Drawer.Screen
-        name="WebviewPreviewContainer"
-        component={WebviewPreviewContainer}
-        options={{ title: 'Webview', headerTitle: 'Webview Preview' }}
       />
     </Drawer.Navigator>
   );

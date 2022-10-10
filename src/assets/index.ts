@@ -1,8 +1,8 @@
 export const AppImage = {
-  background: {},
   logo: {
-    app: require('@/assets/images/logo.png'),
+    app: require('@/assets/images/app-logo.png'),
   },
+  background: {},
   illustration: {
     il_1: require('@/assets/images/illustration-1.png'),
     il_2: require('@/assets/images/illustration-2.png'),

@@ -1,0 +1,59 @@
+{
+  "testRunner": "jest",
+  "runnerConfig": "e2e/config.json",
+  "skipLegacyWorkersInjection": true,
+  "apps": {
+    "ios.dev.debug": {
+      "type": "ios.app",
+      "binaryPath": "ios/build/Build/Products/DebugDev-iphonesimulator/RN Boilerplate Dev.app",
+      "build": "xcodebuild -workspace ios/RNB.xcworkspace -scheme RNBDev -configuration DebugDev -sdk iphonesimulator -derivedDataPath ios/build"
+    },
+    "ios.dev.release": {
+      "type": "ios.app",
+      "binaryPath": "ios/build/Build/Products/ReleaseDev-iphonesimulator/RN Boilerplate Dev.app",
+      "build": "xcodebuild -workspace ios/RNB.xcworkspace -scheme RNBDev -sdk iphonesimulator -configuration ReleaseDev -derivedDataPath ios/build -quiet"
+    },
+    "android.dev.debug": {
+      "type": "android.apk",
+      "binaryPath": "android/app/build/outputs/apk/dev/debug/app-dev-debug.apk",
+      "build": "cd android && ./gradlew assembleDevDebug assembleAndroidTest -DtestBuildType=debug && cd .."
+    },
+    "android.dev.release": {
+      "type": "android.apk",
+      "binaryPath": "android/app/build/outputs/apk/dev/release/app-dev-release.apk",
+      "build": "cd android && ./gradlew assembleDevRelease assembleAndroidTest -DtestBuildType=release && cd .."
+    }
+  },
+  "devices": {
+    "simulator": {
+      "type": "ios.simulator",
+      "device": {
+        "type": "iPhone 13"
+      }
+    },
+    "emulator": {
+      "type": "android.emulator",
+      "device": {
+        "avdName": "Pixel_3a_API_Tiramisu"
+      }
+    }
+  },
+  "configurations": {
+    "ios.dev.debug": {
+      "device": "simulator",
+      "app": "ios.dev.debug"
+    },
+    "ios.dev.release": {
+      "device": "simulator",
+      "app": "ios.dev.release"
+    },
+    "android.dev.debug": {
+      "device": "emulator",
+      "app": "android.dev.debug"
+    },
+    "android.dev.release": {
+      "device": "emulator",
+      "app": "android.dev.release"
+    }
+  }
+}

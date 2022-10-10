@@ -6,7 +6,7 @@
 [![Android Build](https://github.com/RadiRS/rn-boilerplate/actions/workflows/android-build.yml/badge.svg)](https://github.com/RadiRS/rn-boilerplate/actions/workflows/android-build.yml)
 [![IOS Build](https://github.com/RadiRS/rn-boilerplate/actions/workflows/ios-build.yml/badge.svg)](https://github.com/RadiRS/rn-boilerplate/actions/workflows/ios-build.yml)
 
-This is a boilerplate for react native project which is include some configuration
+This project was created for Rey.id Mobile Developer entry test.
 
 ## Getting Started
 
@@ -27,11 +27,11 @@ A step by step series of examples that tell you how to get a development env run
 Clone the repository via http or ssh
 
 ```
-git clone https://github.com/RadiRS/rn-boilerplate.git your_app_name
+git clone https://github.com/RadiRS/rn-pookedex.git your_app_name
 ```
 
 ```
-git clone git@github.com:RadiRS/rn-boilerplate.git your_app_name
+git clone git@github.com:RadiRS/rn-pookedex.git your_app_name
 ```
 
 Enter into project directory and install all dependencies
@@ -129,12 +129,3 @@ See also the list of [contributors](https://github.com/RadiRS/rn-boilerplate/con
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
-
-<p>&nbsp;</p>
-
-## Acknowledgments
-
-- [React Native Boilerplate The Coding Machine](https://thecodingmachine.github.io/react-native-boilerplate)
-- [React Native Template Obytes](https://github.com/obytes/react-native-template-obytes)
-- [React Native UI Kitten](https://akveo.github.io/react-native-ui-kitten)
-- [React Native Testing](https://reactnativetesting.io/e2e/intro)

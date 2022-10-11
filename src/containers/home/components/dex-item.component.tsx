@@ -24,7 +24,9 @@ const DexItem: React.FC<DexItemProps> = ({ data, onPress }: DexItemProps) => {
       <Text variant="title-small" style={styles.textId}>
         {`# ${data.id}`}
       </Text>
-      <Text variant="title-regular">{capFirstLetter(data.name)}</Text>
+      <Text variant="title-regular" style={styles.textName}>
+        {capFirstLetter(data.name)}
+      </Text>
       <View style={styles.typeContainer}>
         {data.types.map(item => (
           <TypePokemon name={item.type.name} key={item.slot} />
@@ -50,6 +52,9 @@ const useStyles = () => {
     textId: {
       color: Colors.grey,
       fontSize: 14,
+    },
+    textName: {
+      color: Colors.dark,
     },
     typeContainer: {
       width: '100%',

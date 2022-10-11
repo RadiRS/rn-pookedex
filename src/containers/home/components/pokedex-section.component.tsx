@@ -83,6 +83,14 @@ const PokeDexSection: React.FC = () => {
     return <DexItem data={item} onPress={() => onPressItem(item)} />;
   };
 
+  const renderFooter = () => {
+    if (status !== 'loading') {
+      return null;
+    }
+
+    return <Text type="bold">Loading...</Text>;
+  };
+
   return (
     <ImageBackground
       source={AppImage.background.bg1}
@@ -101,6 +109,7 @@ const PokeDexSection: React.FC = () => {
         data={listPokemon}
         onEndReached={onEndReached}
         renderItem={renderDexItem}
+        ListFooterComponent={renderFooter}
         contentContainerStyle={styles.listContentContainer}
       />
       <PokemonSheet isVisible={isVisible} setVisible={setVisible} />

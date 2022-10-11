@@ -4,8 +4,13 @@ import { useTranslation } from 'react-i18next';
 import { useRoute } from '@react-navigation/native';
 
 import { useAppDispatch, useAppSelector } from '@/store';
-import { getPokemon, selectPokemon, selectPokemonError } from '@/store/pokemon';
-import { capFirstLetter } from '@/helpers';
+import {
+  getPokemon,
+  selectPokemon,
+  selectPokemonError,
+  Type,
+} from '@/store/pokemon';
+import { capFirstLetter, getRandomColor } from '@/helpers';
 import { useTheme } from '@/hooks';
 import { Header, ImagePokemon, TypePokemon } from '@/components/app';
 import { SafeArea, ScrollView, Text } from '@/components/ui';
@@ -79,7 +84,7 @@ const PokemonDetailContainer: React.FC = () => {
           </Text>
           <View style={styles.typeContainer}>
             {pokemon?.types.map(item => (
-              <TypePokemon name={item.type.name} key={item.slot} />
+              <TypePokemon name={item.type.name as Type} key={item.slot} />
             ))}
           </View>
         </View>
@@ -101,6 +106,32 @@ const PokemonDetailContainer: React.FC = () => {
           <Text type="bold" style={styles.mr}>
             {t('labels.stats')} :
           </Text>
+          <View style={styles.spriteContainer}>
+            {pokemon?.stats.map(item => (
+              <View key={item.stat.name} style={styles.status}>
+                <Text style={styles.textStats} type="bold">
+                  {item.base_stat}
+                </Text>
+                <Text variant="small" style={styles.textStatsName}>
+                  {capFirstLetter(item.stat.name)}
+                </Text>
+              </View>
+            ))}
+          </View>
+        </View>
+        <View style={styles.mb}>
+          <Text type="bold" style={styles.mr}>
+            {t('labels.evolution')} :
+          </Text>
+          <View style={styles.spriteContainer}>
+            {pokemon?.stats.map(item => (
+              <View key={item.stat.name} style={styles.status}>
+                <Text variant="small" style={styles.textStatsName}>
+                  {capFirstLetter(item.stat.name)}
+                </Text>
+              </View>
+            ))}
+          </View>
         </View>
       </ScrollView>
     </SafeArea>
@@ -147,6 +178,23 @@ const useStyles = () => {
     sprite: {
       width: width / 3.3,
       height: 86,
+    },
+    status: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: width / 3.8,
+      height: width / 3.8,
+      borderWidth: 5,
+      borderRadius: 100,
+      marginVertical: MetricsSizes.small,
+      borderColor: getRandomColor(),
+    },
+    textStats: {
+      fontSize: 28,
+      textAlign: 'center',
+    },
+    textStatsName: {
+      textAlign: 'center',
     },
   });
 };

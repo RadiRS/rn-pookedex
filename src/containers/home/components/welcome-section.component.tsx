@@ -45,7 +45,7 @@ const WelcomeSection: React.FC<WelcomeSectionProps> = ({
 export default WelcomeSection;
 
 const useStyles = () => {
-  const { MetricsSizes } = useTheme();
+  const { MetricsSizes, Colors } = useTheme();
   const { height } = Dimensions.get('screen');
   const { top } = useSafeAreaInsets();
   const isAndroid = Platform.OS === 'android';
@@ -54,6 +54,7 @@ const useStyles = () => {
     welcomeContainer: {
       paddingTop: isAndroid ? 0 : top,
       height,
+      backgroundColor: Colors.background,
     },
     padder: {
       padding: MetricsSizes.regular,

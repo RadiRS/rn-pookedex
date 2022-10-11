@@ -24,6 +24,7 @@ const useStyles = () => {
     img: {
       width: 200,
       height: 200,
+      resizeMode: 'contain',
     },
   });
 };

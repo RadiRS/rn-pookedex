@@ -32,6 +32,9 @@ const PokeDexSection: React.FC = () => {
   const styles = useStyles();
   const { t } = useTranslation();
   const [isVisible, setVisible] = useState(false);
+  const [offset, setOffset] = useState(0);
+  const [listPokemon, setListPokemon] = useState<Pokemon[]>([]);
+  const limit = 5;
 
   const pokemons = useAppSelector(selectPokemons);
   const status = useAppSelector(selectPokemonStatus);
@@ -39,16 +42,41 @@ const PokeDexSection: React.FC = () => {
 
   useEffect(() => {
     if (status === 'idle') {
-      dispatch(getPokemons({ limit: 5, offset: 0 }));
+      dispatch(getPokemons({ limit, offset }));
     }
 
-    return () => {};
-  }, [status, dispatch]);
+    if (offset === 0) {
+      setListPokemon(pokemons?.results || []);
+    }
+  }, [status, dispatch, offset, pokemons?.results]);
+
+  useEffect(() => {
+    dispatch(getPokemons({ limit, offset }));
+
+    if (offset !== 0) {
+      if (!pokemons) {
+        return;
+      }
+      const newData = [...listPokemon, ...pokemons.results];
+
+      setListPokemon(newData);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [offset, dispatch]);
 
   const onPressItem = (item: Pokemon) => {
     dispatch(setPokemon(item));
 
     setVisible(true);
+  };
+
+  const onEndReached = () => {
+    if (status === 'loading' || !pokemons?.results.length) {
+      return;
+    }
+
+    setOffset(prevState => prevState + 5);
   };
 
   const renderDexItem: ListRenderItem<Pokemon> = ({ item }) => {
@@ -70,7 +98,8 @@ const PokeDexSection: React.FC = () => {
       </View>
       <FlatList
         nestedScrollEnabled
-        data={pokemons?.results}
+        data={listPokemon}
+        onEndReached={onEndReached}
         renderItem={renderDexItem}
         contentContainerStyle={styles.listContentContainer}
       />
@@ -78,8 +107,6 @@ const PokeDexSection: React.FC = () => {
     </ImageBackground>
   );
 };
-
-export default PokeDexSection;
 
 const useStyles = () => {
   const { MetricsSizes, Colors } = useTheme();
@@ -114,3 +141,5 @@ const useStyles = () => {
     },
   });
 };
+
+export default PokeDexSection;

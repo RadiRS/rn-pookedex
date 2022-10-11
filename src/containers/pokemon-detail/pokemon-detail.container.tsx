@@ -10,9 +10,14 @@ import {
   selectPokemonError,
   Type,
 } from '@/store/pokemon';
-import { capFirstLetter, getRandomColor } from '@/helpers';
+import { capFirstLetter } from '@/helpers';
 import { useTheme } from '@/hooks';
-import { Header, ImagePokemon, TypePokemon } from '@/components/app';
+import {
+  Header,
+  ImagePokemon,
+  StatPokemon,
+  TypePokemon,
+} from '@/components/app';
 import { SafeArea, ScrollView, Text } from '@/components/ui';
 
 interface PokemonDetailContainerProps {
@@ -108,14 +113,11 @@ const PokemonDetailContainer: React.FC = () => {
           </Text>
           <View style={styles.spriteContainer}>
             {pokemon?.stats.map(item => (
-              <View key={item.stat.name} style={styles.status}>
-                <Text style={styles.textStats} type="bold">
-                  {item.base_stat}
-                </Text>
-                <Text variant="small" style={styles.textStatsName}>
-                  {capFirstLetter(item.stat.name)}
-                </Text>
-              </View>
+              <StatPokemon
+                key={item.stat.name}
+                name={item.stat.name}
+                stat={item.base_stat}
+              />
             ))}
           </View>
         </View>
@@ -124,13 +126,13 @@ const PokemonDetailContainer: React.FC = () => {
             {t('labels.evolution')} :
           </Text>
           <View style={styles.spriteContainer}>
-            {pokemon?.stats.map(item => (
+            {/* {pokemon?.stats.map(item => (
               <View key={item.stat.name} style={styles.status}>
                 <Text variant="small" style={styles.textStatsName}>
                   {capFirstLetter(item.stat.name)}
                 </Text>
               </View>
-            ))}
+            ))} */}
           </View>
         </View>
       </ScrollView>
@@ -178,23 +180,6 @@ const useStyles = () => {
     sprite: {
       width: width / 3.3,
       height: 86,
-    },
-    status: {
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: width / 3.8,
-      height: width / 3.8,
-      borderWidth: 5,
-      borderRadius: 100,
-      marginVertical: MetricsSizes.small,
-      borderColor: getRandomColor(),
-    },
-    textStats: {
-      fontSize: 28,
-      textAlign: 'center',
-    },
-    textStatsName: {
-      textAlign: 'center',
     },
   });
 };

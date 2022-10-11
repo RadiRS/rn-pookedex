@@ -9,7 +9,11 @@ import { useTheme } from '@/hooks';
 
 import { navigationRef } from './utils';
 import { RootStackParamList } from './types';
-import { HomeContainer, PokemonDetailContainer } from '@/containers';
+import {
+  HomeContainer,
+  PokemonDetailContainer,
+  PokemonTypeContainer,
+} from '@/containers';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -37,6 +41,7 @@ const RootNavigator = () => {
             name="PokemonDetail"
             component={PokemonDetailContainer}
           />
+          <Stack.Screen name="PokemonType" component={PokemonTypeContainer} />
         </Stack.Navigator>
       </NavigationContainer>
     </GestureHandlerRootView>

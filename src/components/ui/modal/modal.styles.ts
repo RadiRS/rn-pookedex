@@ -7,6 +7,9 @@ const styles = StyleSheet.create({
   modalBottom: {
     justifyContent: 'flex-end',
   },
+  modalTop: {
+    justifyContent: 'flex-start',
+  },
 });
 
 export default styles;

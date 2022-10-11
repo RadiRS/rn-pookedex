@@ -111,7 +111,7 @@ const PokemonDetailContainer: React.FC = () => {
           <Text type="bold" style={styles.mr}>
             {t('labels.stats')} :
           </Text>
-          <View style={styles.spriteContainer}>
+          <View style={styles.statsContainer}>
             {pokemon?.stats.map(item => (
               <StatPokemon
                 key={item.stat.name}
@@ -175,11 +175,16 @@ const useStyles = () => {
     spriteContainer: {
       flexDirection: 'row',
       flexWrap: 'wrap',
-      justifyContent: 'space-between',
+      // justifyContent: 'space-between',
     },
     sprite: {
       width: width / 3.3,
       height: 86,
+    },
+    statsContainer: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'space-between',
     },
   });
 };

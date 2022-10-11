@@ -5,13 +5,26 @@ import { useTheme } from '@/hooks';
 import { AppImage } from '@/assets';
 import { useNavigation } from '@react-navigation/native';
 
-const Header = () => {
+interface HeaderProps {
+  onPressMenu?: () => void;
+  isBack?: boolean;
+}
+
+const Header: React.FC<HeaderProps> = ({
+  onPressMenu,
+  isBack,
+}: HeaderProps) => {
   const styles = useStyles();
   const navigation = useNavigation();
-  const canGoBack = navigation.canGoBack();
+  const canGoBack = isBack || navigation.canGoBack();
   const ic = canGoBack ? AppImage.icon.times : AppImage.icon.burger;
 
-  const onPressMenu = () => {
+  const extOnPressMenu = () => {
+    if (onPressMenu) {
+      onPressMenu();
+      return;
+    }
+
     if (canGoBack) {
       navigation.goBack();
     }
@@ -20,7 +33,7 @@ const Header = () => {
   return (
     <View style={styles.container}>
       <Image source={AppImage.logo.app} style={styles.img} />
-      <Pressable style={styles.press} onPress={onPressMenu}>
+      <Pressable style={styles.press} onPress={extOnPressMenu}>
         <Image source={ic} style={styles.menu} />
       </Pressable>
     </View>

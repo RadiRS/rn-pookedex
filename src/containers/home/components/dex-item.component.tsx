@@ -1,44 +1,36 @@
 import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 
 import { useTheme } from '@/hooks';
+import { Pokemon } from '@/store/pokemon';
 import { Text } from '@/components/ui';
+import { ImagePokemon, TypePokemon } from '@/components/app';
+import { capFirstLetter } from '@/helpers';
 
-const imgUri = 'https://placeimg.com/640/480/animals';
+interface DexItemProps {
+  data: Pokemon;
+  onPress?: () => void;
+}
 
-const DexItem: React.FC = () => {
+const DexItem: React.FC<DexItemProps> = ({ data, onPress }: DexItemProps) => {
   const styles = useStyles();
 
   return (
-    <View style={styles.container}>
-      <Image source={{ uri: imgUri }} style={styles.img} />
+    <Pressable style={styles.container} onPress={onPress}>
+      <ImagePokemon
+        url={data.sprites.other.home.front_default}
+        style={styles.mb}
+      />
       <Text variant="title-small" style={styles.textId}>
-        #001
+        {`# ${data.id}`}
       </Text>
-      <Text variant="title-regular">Poke Name</Text>
+      <Text variant="title-regular">{capFirstLetter(data.name)}</Text>
       <View style={styles.typeContainer}>
-        <View style={styles.badge}>
-          <Text status="control" type="bold">
-            Type 1
-          </Text>
-        </View>
-        <View style={styles.badge}>
-          <Text status="control" type="bold">
-            Type 1
-          </Text>
-        </View>
-        <View style={styles.badge}>
-          <Text status="control" type="bold">
-            Type 1
-          </Text>
-        </View>
-        <View style={styles.badge}>
-          <Text status="control" type="bold">
-            Type 1
-          </Text>
-        </View>
+        {data.types.map(item => (
+          <TypePokemon name={item.type.name} key={item.slot} />
+        ))}
       </View>
-    </View>
+    </Pressable>
   );
 };
 
@@ -59,23 +51,13 @@ const useStyles = () => {
       color: Colors.grey,
       fontSize: 14,
     },
-    img: {
-      width: 200,
-      height: 200,
-      backgroundColor: Colors.grey,
-      marginBottom: MetricsSizes.regular,
-    },
     typeContainer: {
       width: '100%',
       flexDirection: 'row',
       flexWrap: 'wrap',
     },
-    badge: {
-      paddingVertical: MetricsSizes.tiny,
-      paddingHorizontal: MetricsSizes.regular,
-      backgroundColor: 'red',
-      borderRadius: 50,
-      margin: MetricsSizes.tiny,
+    mb: {
+      marginBottom: MetricsSizes.regular,
     },
   });
 };

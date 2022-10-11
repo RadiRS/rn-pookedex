@@ -14,7 +14,11 @@ const initialState: PokemonState = {
 const pokemonSlice = createSlice({
   name: 'pokemon',
   initialState,
-  reducers: {},
+  reducers: {
+    setPokemon: (state, action) => {
+      state.pokemon = action.payload;
+    },
+  },
   extraReducers: builder => {
     builder.addCase(getPokemons.pending, (state, _) => {
       state.status = 'loading';
@@ -29,6 +33,8 @@ const pokemonSlice = createSlice({
     });
   },
 });
+
+export const { setPokemon } = pokemonSlice.actions;
 
 export const selectPokemons = (state: RootState) => state.pokemon.pokemons;
 export const selectPokemon = (state: RootState) => state.pokemon.pokemon;

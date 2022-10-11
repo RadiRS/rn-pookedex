@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Dimensions,
   ImageBackground,
+  ListRenderItem,
   Platform,
   StyleSheet,
   View,
@@ -15,17 +16,22 @@ import {
   getPokemons,
   selectPokemonStatus,
   selectPokemonError,
+  Pokemon,
+  setPokemon,
 } from '@/store/pokemon';
 
 import { AppImage } from '@/assets';
 import { useTheme } from '@/hooks';
 import { Text, FlatList } from '@/components/ui';
+
 import DexItem from './dex-item.component';
+import PokemonSheet from './pokemon-sheet.component';
 
 const PokeDexSection: React.FC = () => {
   const dispatch = useAppDispatch();
   const styles = useStyles();
   const { t } = useTranslation();
+  const [isVisible, setVisible] = useState(false);
 
   const pokemons = useAppSelector(selectPokemons);
   const status = useAppSelector(selectPokemonStatus);
@@ -39,8 +45,14 @@ const PokeDexSection: React.FC = () => {
     return () => {};
   }, [status, dispatch]);
 
-  const renderDexItem = () => {
-    return <DexItem />;
+  const onPressItem = (item: Pokemon) => {
+    dispatch(setPokemon(item));
+
+    setVisible(true);
+  };
+
+  const renderDexItem: ListRenderItem<Pokemon> = ({ item }) => {
+    return <DexItem data={item} onPress={() => onPressItem(item)} />;
   };
 
   return (
@@ -62,6 +74,7 @@ const PokeDexSection: React.FC = () => {
         renderItem={renderDexItem}
         contentContainerStyle={styles.listContentContainer}
       />
+      <PokemonSheet isVisible={isVisible} setVisible={setVisible} />
     </ImageBackground>
   );
 };

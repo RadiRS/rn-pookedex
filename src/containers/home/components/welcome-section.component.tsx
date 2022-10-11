@@ -10,8 +10,11 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 
+import Translations from '@/config/translations';
 import { useTheme } from '@/hooks';
 import { AppImage } from '@/assets';
+import { useAppDispatch } from '@/store';
+import { changeTheme } from '@/store/theme';
 import { Text, Button, Modal } from '@/components/ui';
 import { Header } from '@/components/app';
 import { useRoute } from '@react-navigation/native';
@@ -25,14 +28,16 @@ const WelcomeSection: React.FC<WelcomeSectionProps> = ({
   onPress,
 }: WelcomeSectionProps) => {
   const styles = useStyles();
-  const { t } = useTranslation();
-  const { Gutters } = useTheme();
+  const dispatch = useAppDispatch();
+  const { t, i18n } = useTranslation();
+  const { Gutters, darkMode } = useTheme();
   const [isVisibleMenu, setVisibleMenu] = useState(false);
   const route = useRoute();
+  const lg = i18n.language === 'en' ? 'id' : 'en';
 
   const menu = [
-    { name: 'Home', title: 'Home' },
-    { name: 'PokemonType', title: 'Pokemon Type' },
+    { name: 'Home', title: t('menu.home') },
+    { name: 'PokemonType', title: t('menu.pokemonType') },
   ];
 
   const onPressNavigate = (name: string) => {
@@ -44,6 +49,14 @@ const WelcomeSection: React.FC<WelcomeSectionProps> = ({
         navigate(name as keyof RootStackParamList);
       }, 200);
     }
+  };
+
+  const onPressTheme = () => {
+    dispatch(changeTheme({ darkMode: !darkMode }));
+  };
+
+  const onPressLanguage = () => {
+    Translations.changeLanguage(lg);
   };
 
   const renderMenu = () => (
@@ -66,6 +79,15 @@ const WelcomeSection: React.FC<WelcomeSectionProps> = ({
               </Text>
             </Pressable>
           ))}
+
+          <Pressable onPress={onPressTheme} style={styles.menu}>
+            <Text>
+              {darkMode ? t('labels.lightMode') : t('labels.darkMode')}
+            </Text>
+          </Pressable>
+          <Pressable onPress={onPressLanguage} style={styles.menu}>
+            <Text>{lg.toUpperCase()}</Text>
+          </Pressable>
         </View>
       </View>
     </Modal>

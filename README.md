@@ -61,10 +61,6 @@ For testing just run script command
 yarn test
 ```
 
-```
-yarn e2e-ios
-```
-
 <p>&nbsp;</p>
 
 ## Deployment

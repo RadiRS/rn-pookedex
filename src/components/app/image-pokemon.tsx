@@ -3,7 +3,7 @@ import { Image, ImageStyle, StyleProp, StyleSheet } from 'react-native';
 
 interface ImagePokemonProps {
   url?: string | null;
-  style: StyleProp<ImageStyle>;
+  style?: StyleProp<ImageStyle>;
 }
 
 const ImagePokemon: React.FC<ImagePokemonProps> = ({

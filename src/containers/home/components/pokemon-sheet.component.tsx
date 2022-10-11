@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
+import { navigate } from '@/navigators';
 import { useAppSelector } from '@/store';
 import { selectPokemon } from '@/store/pokemon';
 import { useTheme } from '@/hooks';
@@ -21,6 +22,13 @@ const PokemonSheet: React.FC<PokemonSheetProps> = ({
   const styles = useStyles();
   const pokemon = useAppSelector(selectPokemon);
   const { t } = useTranslation();
+
+  const onPressDetail = () => {
+    setVisible(false);
+    setTimeout(() => {
+      navigate('PokemonDetail', { id: pokemon?.id });
+    }, 200);
+  };
 
   return (
     <Modal
@@ -60,7 +68,9 @@ const PokemonSheet: React.FC<PokemonSheetProps> = ({
             ))}
           </View>
         </View>
-        <Button style={styles.btn}>{t('actions.moreDetail')}</Button>
+        <Button style={styles.btn} onPress={onPressDetail}>
+          {t('actions.moreDetail')}
+        </Button>
       </View>
     </Modal>
   );

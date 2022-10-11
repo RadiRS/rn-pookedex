@@ -64,7 +64,7 @@ const PokeDexSection: React.FC = () => {
           {t('headerTitle')}
         </Text>
         <Text style={styles.subTitleDex}>
-          {t('headerSubtitle', { total: '9999' })}
+          {t('headerSubtitle', { total: pokemons?.count })}
         </Text>
         {error && <Text status="error">{error}</Text>}
       </View>

@@ -3,17 +3,25 @@ import { View, StyleSheet, Image, Pressable } from 'react-native';
 
 import { useTheme } from '@/hooks';
 import { AppImage } from '@/assets';
+import { useNavigation } from '@react-navigation/native';
 
-const HeaderSection = () => {
+const Header = () => {
   const styles = useStyles();
+  const navigation = useNavigation();
+  const canGoBack = navigation.canGoBack();
+  const ic = canGoBack ? AppImage.icon.times : AppImage.icon.burger;
 
-  const onPressMenu = () => {};
+  const onPressMenu = () => {
+    if (canGoBack) {
+      navigation.goBack();
+    }
+  };
 
   return (
     <View style={styles.container}>
       <Image source={AppImage.logo.app} style={styles.img} />
       <Pressable style={styles.press} onPress={onPressMenu}>
-        <Image source={AppImage.icon.burger} style={styles.menu} />
+        <Image source={ic} style={styles.menu} />
       </Pressable>
     </View>
   );
@@ -44,4 +52,4 @@ const useStyles = () => {
     },
   });
 };
-export default HeaderSection;
+export default Header;

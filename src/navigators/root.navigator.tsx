@@ -9,8 +9,7 @@ import { useTheme } from '@/hooks';
 
 import { navigationRef } from './utils';
 import { RootStackParamList } from './types';
-// import DrawerNavigator from './drawer.navigator';
-import { HomeContainer } from '@/containers';
+import { HomeContainer, PokemonDetailContainer } from '@/containers';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -33,8 +32,11 @@ const RootNavigator = () => {
         onReady={onReady}>
         <StatusBar barStyle={barStyle} backgroundColor={backgroundColor} />
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          {/* <Stack.Screen name="MainDrawer" component={DrawerNavigator} /> */}
           <Stack.Screen name="Home" component={HomeContainer} />
+          <Stack.Screen
+            name="PokemonDetail"
+            component={PokemonDetailContainer}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </GestureHandlerRootView>

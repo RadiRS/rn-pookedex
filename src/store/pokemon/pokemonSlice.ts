@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { RootState } from '@/store';
-import { getPokemons } from './pokemonService';
+import { getPokemon, getPokemons } from './pokemonService';
 import { PokemonState } from './types';
 
 const initialState: PokemonState = {
@@ -30,6 +30,10 @@ const pokemonSlice = createSlice({
     builder.addCase(getPokemons.rejected, (state, action) => {
       state.status = 'failed';
       state.error = action.error.message || null;
+    });
+    builder.addCase(getPokemon.fulfilled, (state, action) => {
+      state.status = 'succeeded';
+      state.pokemon = action.payload;
     });
   },
 });

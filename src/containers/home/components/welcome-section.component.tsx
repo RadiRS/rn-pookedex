@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/hooks';
 import { AppImage } from '@/assets';
 import { Text, Button } from '@/components/ui';
-import HeaderSection from './header.component';
+import { Header } from '@/components/app';
 
 interface WelcomeSectionProps {
   onPress: () => void;
@@ -21,7 +21,7 @@ const WelcomeSection: React.FC<WelcomeSectionProps> = ({
 
   return (
     <View style={styles.welcomeContainer}>
-      <HeaderSection />
+      <Header />
       <View style={styles.padder}>
         <Image source={AppImage.background.welcome} style={styles.welcomeImg} />
         <View style={Gutters.largeTMargin}>

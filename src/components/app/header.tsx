@@ -33,7 +33,10 @@ const Header: React.FC<HeaderProps> = ({
   return (
     <View style={styles.container}>
       <Image source={AppImage.logo.app} style={styles.img} />
-      <Pressable style={styles.press} onPress={extOnPressMenu}>
+      <Pressable
+        testID="burger-menu"
+        style={styles.press}
+        onPress={extOnPressMenu}>
         <Image source={ic} style={styles.menu} />
       </Pressable>
     </View>

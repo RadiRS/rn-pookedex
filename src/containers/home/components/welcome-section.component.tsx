@@ -62,7 +62,9 @@ const WelcomeSection: React.FC<WelcomeSectionProps> = ({
   const renderMenu = () => (
     <Modal
       variant="top"
+      swipeDirection="up"
       isVisible={isVisibleMenu}
+      onSwipeComplete={() => setVisibleMenu(false)}
       onBackdropPress={() => setVisibleMenu(false)}>
       <View style={styles.menuContainer}>
         <Header isBack onPressMenu={() => setVisibleMenu(false)} />
@@ -80,12 +82,18 @@ const WelcomeSection: React.FC<WelcomeSectionProps> = ({
             </Pressable>
           ))}
 
-          <Pressable onPress={onPressTheme} style={styles.menu}>
+          <Pressable
+            testID="theme-menu"
+            onPress={onPressTheme}
+            style={styles.menu}>
             <Text>
               {darkMode ? t('labels.lightMode') : t('labels.darkMode')}
             </Text>
           </Pressable>
-          <Pressable onPress={onPressLanguage} style={styles.menu}>
+          <Pressable
+            testID="language-menu"
+            onPress={onPressLanguage}
+            style={styles.menu}>
             <Text>{lg.toUpperCase()}</Text>
           </Pressable>
         </View>

@@ -17,7 +17,8 @@ const HomeContainer = () => {
       pagingEnabled
       bounces={false}
       ref={refScroll}
-      nestedScrollEnabled>
+      nestedScrollEnabled
+      testID="home-screen">
       <WelcomeSection onPress={onPressCheckPokeDex} />
       <PokeDexSection />
     </ScrollView>

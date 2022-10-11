@@ -72,12 +72,8 @@ const styles = ({
   const typ: TextStyle =
     type === 'bold'
       ? { fontFamily: FontsFamily.bold }
-      : type === 'light'
-      ? { fontFamily: FontsFamily.light }
       : type === 'semi-bold'
       ? { fontFamily: FontsFamily.semiBold }
-      : type === 'italic'
-      ? { fontFamily: FontsFamily.italic }
       : { fontFamily: FontsFamily.regular };
 
   return StyleSheet.create({

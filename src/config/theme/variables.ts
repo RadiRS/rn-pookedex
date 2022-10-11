@@ -10,7 +10,7 @@
  */
 export const Colors = {
   transparent: 'rgba(0,0,0,0)',
-  background: '#F5F5F5',
+  background: '#FFFF',
   splashBackground: '#212529',
   inputBackground: '#FFFFFF',
   white: '#ffffff',

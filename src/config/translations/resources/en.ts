@@ -23,6 +23,8 @@ export default {
     evolution: 'Evolution',
     perPage: 'Per Page',
     totalData: 'Total Data',
+    lightMode: 'Light Mode',
+    darkMode: 'Dark Mode',
   },
   example: {
     helloUser: 'Hello {{name}}',

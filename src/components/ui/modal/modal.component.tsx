@@ -11,9 +11,9 @@ interface ModalProps {
   onBackdropPress?: () => void;
   children: ReactNode;
   style?: ViewStyle;
-  variant?: 'center' | 'bottom';
+  variant?: 'center' | 'bottom' | 'top';
   swipeDirection?: Direction | Direction[];
-  onSwipeComplete: () => void;
+  onSwipeComplete?: () => void;
 }
 
 const Modal = ({
@@ -24,12 +24,17 @@ const Modal = ({
   variant,
   ...props
 }: ModalProps) => {
-  const bottomStyle: ViewStyle = variant === 'bottom' ? styles.modalBottom : {};
+  const bottomStyle: ViewStyle =
+    variant === 'bottom'
+      ? styles.modalBottom
+      : variant === 'top'
+      ? styles.modalTop
+      : {};
 
   return (
     <RNModal
-      animationOut="slideOutDown"
-      animationIn="slideInUp"
+      animationOut={variant === 'top' ? 'slideOutUp' : 'slideOutDown'}
+      animationIn={variant === 'top' ? 'slideInDown' : 'slideInUp'}
       isVisible={isVisible}
       style={[styles.modal, bottomStyle, style]}
       avoidKeyboard={avoidKeyboard}

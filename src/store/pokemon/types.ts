@@ -19,14 +19,14 @@ export interface Pokemon {
   weight: number;
   types: PokemonType[];
   abilities: PokemonAbility[];
-  stats: PokemonState[];
+  stats: PokemonStatus[];
   sprites: PokemonSprites;
 }
 
 export interface PokemonType {
   slot: number;
   type: {
-    name: string;
+    name: Type;
     url: string;
   };
 }
@@ -66,3 +66,24 @@ export interface PokemonStatus {
 }
 
 export type Status = 'idle' | 'loading' | 'succeeded' | 'failed';
+
+export type Type =
+  | 'normal'
+  | 'fire'
+  | 'grass'
+  | 'water'
+  | 'ice'
+  | 'electric'
+  | 'fighting'
+  | 'flying'
+  | 'bug'
+  | 'ghost'
+  | 'rock'
+  | 'ground'
+  | 'steal'
+  | 'dark'
+  | 'psychic'
+  | 'fairy'
+  | 'dragon'
+  | 'steel'
+  | 'poison';

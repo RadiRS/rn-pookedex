@@ -32,6 +32,9 @@ const PokeDexSection: React.FC = () => {
   const styles = useStyles();
   const { t } = useTranslation();
   const [isVisible, setVisible] = useState(false);
+  const [offset, setOffset] = useState(0);
+  const [listPokemon, setListPokemon] = useState<Pokemon[]>([]);
+  const limit = 5;
 
   const pokemons = useAppSelector(selectPokemons);
   const status = useAppSelector(selectPokemonStatus);
@@ -39,11 +42,28 @@ const PokeDexSection: React.FC = () => {
 
   useEffect(() => {
     if (status === 'idle') {
-      dispatch(getPokemons({ limit: 5, offset: 0 }));
+      dispatch(getPokemons({ limit, offset }));
     }
 
-    return () => {};
-  }, [status, dispatch]);
+    if (offset === 0) {
+      setListPokemon(pokemons?.results || []);
+    }
+  }, [status, dispatch, offset, pokemons?.results]);
+
+  useEffect(() => {
+    dispatch(getPokemons({ limit, offset }));
+
+    if (offset !== 0) {
+      if (!pokemons) {
+        return;
+      }
+      const newData = [...listPokemon, ...pokemons.results];
+
+      setListPokemon(newData);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [offset, dispatch]);
 
   const onPressItem = (item: Pokemon) => {
     dispatch(setPokemon(item));
@@ -51,8 +71,24 @@ const PokeDexSection: React.FC = () => {
     setVisible(true);
   };
 
+  const onEndReached = () => {
+    if (status === 'loading' || !pokemons?.results.length) {
+      return;
+    }
+
+    setOffset(prevState => prevState + 5);
+  };
+
   const renderDexItem: ListRenderItem<Pokemon> = ({ item }) => {
     return <DexItem data={item} onPress={() => onPressItem(item)} />;
+  };
+
+  const renderFooter = () => {
+    if (status !== 'loading') {
+      return null;
+    }
+
+    return <Text type="bold">Loading...</Text>;
   };
 
   return (
@@ -64,22 +100,22 @@ const PokeDexSection: React.FC = () => {
           {t('headerTitle')}
         </Text>
         <Text style={styles.subTitleDex}>
-          {t('headerSubtitle', { total: '9999' })}
+          {t('headerSubtitle', { total: pokemons?.count })}
         </Text>
         {error && <Text status="error">{error}</Text>}
       </View>
       <FlatList
         nestedScrollEnabled
-        data={pokemons?.results}
+        data={listPokemon}
+        onEndReached={onEndReached}
         renderItem={renderDexItem}
+        ListFooterComponent={renderFooter}
         contentContainerStyle={styles.listContentContainer}
       />
       <PokemonSheet isVisible={isVisible} setVisible={setVisible} />
     </ImageBackground>
   );
 };
-
-export default PokeDexSection;
 
 const useStyles = () => {
   const { MetricsSizes, Colors } = useTheme();
@@ -114,3 +150,5 @@ const useStyles = () => {
     },
   });
 };
+
+export default PokeDexSection;

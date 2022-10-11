@@ -3,7 +3,7 @@ import { Image, ImageStyle, StyleProp, StyleSheet } from 'react-native';
 
 interface ImagePokemonProps {
   url?: string | null;
-  style: StyleProp<ImageStyle>;
+  style?: StyleProp<ImageStyle>;
 }
 
 const ImagePokemon: React.FC<ImagePokemonProps> = ({
@@ -24,6 +24,7 @@ const useStyles = () => {
     img: {
       width: 200,
       height: 200,
+      resizeMode: 'contain',
     },
   });
 };

@@ -20,6 +20,3 @@ const App = () => {
 };
 
 export default App;
-
-// Render Storybook
-// export { default } from '../storybook';

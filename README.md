@@ -108,7 +108,7 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/RadiRS/rn-boilerplate/tags).
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/RadiRS/rn-pookedex/tags).
 
 <p>&nbsp;</p>
 
@@ -116,7 +116,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 - **Radi Rusadi** - _Initial work_ - [RadiRS](https://github.com/RadiRS)
 
-See also the list of [contributors](https://github.com/RadiRS/rn-boilerplate/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/RadiRS/rn-pookedex/contributors) who participated in this project.
 
 <p>&nbsp;</p>
 

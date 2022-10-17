@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View, ViewStyle } from 'react-native';
 
 import { useTheme } from '@/hooks';
 import { Pokemon } from '@/store/pokemon';
@@ -10,13 +10,18 @@ import { capFirstLetter } from '@/helpers';
 interface DexItemProps {
   data: Pokemon;
   onPress?: () => void;
+  style?: ViewStyle;
 }
 
-const DexItem: React.FC<DexItemProps> = ({ data, onPress }: DexItemProps) => {
+const DexItem: React.FC<DexItemProps> = ({
+  data,
+  onPress,
+  style,
+}: DexItemProps) => {
   const styles = useStyles();
 
   return (
-    <Pressable style={styles.container} onPress={onPress}>
+    <Pressable style={[styles.container, style]} onPress={onPress}>
       <ImagePokemon
         url={data.sprites.other.home.front_default}
         style={styles.mb}

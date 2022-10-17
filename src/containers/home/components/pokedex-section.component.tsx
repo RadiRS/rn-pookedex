@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Dimensions,
   ImageBackground,
@@ -6,6 +6,7 @@ import {
   Platform,
   StyleSheet,
   View,
+  FlatList as RNFlatList,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -26,10 +27,12 @@ import { Text, FlatList } from '@/components/ui';
 
 import DexItem from './dex-item.component';
 import PokemonSheet from './pokemon-sheet.component';
+import WelcomeSection from './welcome-section.component';
 
 const PokeDexSection: React.FC = () => {
   const dispatch = useAppDispatch();
   const styles = useStyles();
+  const refScroll = useRef<RNFlatList>(null);
   const { t } = useTranslation();
   const [isVisible, setVisible] = useState(false);
   const [offset, setOffset] = useState(0);
@@ -67,8 +70,40 @@ const PokeDexSection: React.FC = () => {
     setOffset(prevState => prevState + 5);
   };
 
-  const renderDexItem: ListRenderItem<Pokemon> = ({ item }) => {
-    return <DexItem data={item} onPress={() => onPressItem(item)} />;
+  const renderHeader = () => {
+    const onPress = () => {
+      refScroll.current?.scrollToIndex({ index: 0 });
+    };
+    return <WelcomeSection onPress={onPress} />;
+  };
+
+  const renderDexItem: ListRenderItem<Pokemon> = ({ item, index }) => {
+    if (index === 0) {
+      return (
+        <View style={styles.titleContainer}>
+          <Text variant="title-regular" style={styles.title}>
+            {t('headerTitle')}
+          </Text>
+          <Text style={styles.subTitleDex}>
+            {t('headerSubtitle', { total: pokemons?.count })}
+          </Text>
+          {error && <Text status="error">{error}</Text>}
+          <DexItem
+            data={item}
+            onPress={() => onPressItem(item)}
+            style={styles.item}
+          />
+        </View>
+      );
+    }
+
+    return (
+      <DexItem
+        data={item}
+        onPress={() => onPressItem(item)}
+        style={styles.item}
+      />
+    );
   };
 
   const renderFooter = () => {
@@ -76,29 +111,27 @@ const PokeDexSection: React.FC = () => {
       return null;
     }
 
-    return <Text type="bold">Loading...</Text>;
+    return (
+      <Text type="bold" style={styles.item}>
+        Loading...
+      </Text>
+    );
   };
 
   return (
     <ImageBackground
       source={AppImage.background.bg1}
       style={styles.dexContainer}>
-      <View style={styles.titleContainer}>
-        <Text variant="title-regular" style={styles.title}>
-          {t('headerTitle')}
-        </Text>
-        <Text style={styles.subTitleDex}>
-          {t('headerSubtitle', { total: pokemons?.count })}
-        </Text>
-        {error && <Text status="error">{error}</Text>}
-      </View>
       <FlatList
         nestedScrollEnabled
+        bounces={false}
+        ref={refScroll}
         data={pokemons?.results}
         onEndReached={onEndReached}
         renderItem={renderDexItem}
+        ListHeaderComponent={renderHeader}
         ListFooterComponent={renderFooter}
-        contentContainerStyle={styles.listContentContainer}
+        // contentContainerStyle={styles.listContentContainer}
       />
       <PokemonSheet isVisible={isVisible} setVisible={setVisible} />
     </ImageBackground>
@@ -113,7 +146,7 @@ const useStyles = () => {
 
   return StyleSheet.create({
     dexContainer: {
-      paddingTop: isAndroid ? MetricsSizes.regular : top + MetricsSizes.regular,
+      // paddingTop: isAndroid ? MetricsSizes.regular : top + MetricsSizes.regular,
       height: height + 10,
     },
     title: {
@@ -125,16 +158,21 @@ const useStyles = () => {
       backgroundColor: Colors.background,
     },
     titleContainer: {
+      paddingTop: isAndroid ? MetricsSizes.regular : top + MetricsSizes.regular,
       justifyContent: 'center',
       alignItems: 'center',
     },
     subTitleDex: {
       fontSize: 20,
       textAlign: 'center',
+      marginBottom: MetricsSizes.regular,
     },
     listContentContainer: {
       alignItems: 'center',
       padding: MetricsSizes.regular,
+    },
+    item: {
+      alignSelf: 'center',
     },
   });
 };

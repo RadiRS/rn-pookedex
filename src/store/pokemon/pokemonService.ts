@@ -4,7 +4,14 @@ import api, { axios } from '@/store/api';
 
 export const getPokemons = createAsyncThunk(
   '/pokemons',
-  async ({ limit = 5, offset = 0 }: { limit: number; offset: number }) => {
+  async ({
+    limit = 5,
+    offset = 0,
+  }: {
+    limit: number;
+    offset: number;
+    isLoadMore?: boolean;
+  }) => {
     try {
       const res = await api.get(`/pokemon?limit=${limit}&offset=${offset}`);
 

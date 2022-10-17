@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { RootState } from '@/store';
 import { getPokemon, getPokemons } from './pokemonService';
-import { PokemonState } from './types';
+import { PokemonsResponse, PokemonState } from './types';
 
 const initialState: PokemonState = {
   pokemons: null,
@@ -24,8 +24,23 @@ const pokemonSlice = createSlice({
       state.status = 'loading';
     });
     builder.addCase(getPokemons.fulfilled, (state, action) => {
+      const {
+        meta: { arg },
+      } = action;
+
       state.status = 'succeeded';
-      state.pokemons = action.payload;
+
+      if (!arg.isLoadMore) {
+        state.pokemons = action.payload;
+        return;
+      }
+
+      state.pokemons = {
+        ...state.pokemons,
+        results: action.payload.results.length
+          ? state.pokemons?.results.concat(action.payload?.results)
+          : state.pokemons?.results,
+      } as PokemonsResponse;
     });
     builder.addCase(getPokemons.rejected, (state, action) => {
       state.status = 'failed';

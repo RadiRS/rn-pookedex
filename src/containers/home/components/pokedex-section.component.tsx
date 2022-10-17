@@ -33,7 +33,7 @@ const PokeDexSection: React.FC = () => {
   const { t } = useTranslation();
   const [isVisible, setVisible] = useState(false);
   const [offset, setOffset] = useState(0);
-  const [listPokemon, setListPokemon] = useState<Pokemon[]>([]);
+  const [isLoadMore, setIsLoadMore] = useState(false);
   const limit = 5;
 
   const pokemons = useAppSelector(selectPokemons);
@@ -41,29 +41,16 @@ const PokeDexSection: React.FC = () => {
   const error = useAppSelector(selectPokemonError);
 
   useEffect(() => {
+    if (isLoadMore) {
+      dispatch(getPokemons({ limit, offset, isLoadMore }));
+      setIsLoadMore(false);
+      return;
+    }
+
     if (status === 'idle') {
       dispatch(getPokemons({ limit, offset }));
     }
-
-    if (offset === 0) {
-      setListPokemon(pokemons?.results || []);
-    }
-  }, [status, dispatch, offset, pokemons?.results]);
-
-  useEffect(() => {
-    dispatch(getPokemons({ limit, offset }));
-
-    if (offset !== 0) {
-      if (!pokemons) {
-        return;
-      }
-      const newData = [...listPokemon, ...pokemons.results];
-
-      setListPokemon(newData);
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [offset, dispatch]);
+  }, [status, dispatch, offset, pokemons?.results, isLoadMore]);
 
   const onPressItem = (item: Pokemon) => {
     dispatch(setPokemon(item));
@@ -76,6 +63,7 @@ const PokeDexSection: React.FC = () => {
       return;
     }
 
+    setIsLoadMore(true);
     setOffset(prevState => prevState + 5);
   };
 
@@ -106,7 +94,7 @@ const PokeDexSection: React.FC = () => {
       </View>
       <FlatList
         nestedScrollEnabled
-        data={listPokemon}
+        data={pokemons?.results}
         onEndReached={onEndReached}
         renderItem={renderDexItem}
         ListFooterComponent={renderFooter}
